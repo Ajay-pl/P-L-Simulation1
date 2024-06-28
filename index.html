@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,19 +9,34 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
         }
         th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid #dddddd;
             text-align: right;
+            padding: 8px;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #f2f2f2;
+        }
+        .input-cell {
+            text-align: right;
+        }
+        .input-cell input {
+            width: 100px;
+            text-align: right;
+        }
+        .highlight {
+            color: red;
+        }
+        #waterfallChart {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -34,21 +50,21 @@
                 <th>% to Exposure</th>
             </tr>
         </thead>
-        <tbody id="table-body">
+        <tbody>
             <tr>
                 <td>Avg Exposure</td>
-                <td><input type="number" id="avgExposure" value="1000" oninput="updateValues()" style="color: red;"></td>
-                <td>100.0%</td>
+                <td class="input-cell"><input type="number" id="avgExposure" value="1000" onchange="updateValues()"></td>
+                <td id="avgExposurePercent" class="highlight">100.0%</td>
             </tr>
             <tr>
                 <td>Core Income</td>
-                <td><input type="number" id="coreIncome" value="120" oninput="updateValues()" style="color: red;"></td>
-                <td id="coreIncomePercent">12.0%</td>
+                <td class="input-cell"><input type="number" id="coreIncome" value="120" onchange="updateValues()"></td>
+                <td id="coreIncomePercent" class="highlight">12.0%</td>
             </tr>
             <tr>
                 <td>Fee Income</td>
-                <td><input type="number" id="feeIncome" value="1.03" oninput="updateValues()" style="color: red;"></td>
-                <td id="feeIncomePercent">0.1%</td>
+                <td class="input-cell"><input type="number" id="feeIncome" value="1.03" onchange="updateValues()"></td>
+                <td id="feeIncomePercent" class="highlight">0.1%</td>
             </tr>
             <tr>
                 <td>Total Income</td>
@@ -57,28 +73,28 @@
             </tr>
             <tr>
                 <td>Finance Cost</td>
-                <td><input type="number" id="financeCost" value="72" oninput="updateValues()" style="color: red;"></td>
-                <td id="financeCostPercent">7.2%</td>
+                <td class="input-cell"><input type="number" id="financeCost" value="72" onchange="updateValues()"></td>
+                <td id="financeCostPercent" class="highlight">7.2%</td>
             </tr>
             <tr>
                 <td>Outsourcing Cost</td>
-                <td><input type="number" id="outsourcingCost" value="1.86" oninput="updateValues()" style="color: red;"></td>
-                <td id="outsourcingCostPercent">0.2%</td>
+                <td class="input-cell"><input type="number" id="outsourcingCost" value="1.86" onchange="updateValues()"></td>
+                <td id="outsourcingCostPercent" class="highlight">0.2%</td>
             </tr>
             <tr>
                 <td>Establishment Expenses</td>
-                <td><input type="number" id="establishmentExpenses" value="6.53" oninput="updateValues()" style="color: red;"></td>
-                <td id="establishmentExpensesPercent">0.7%</td>
+                <td class="input-cell"><input type="number" id="establishmentExpenses" value="6.53" onchange="updateValues()"></td>
+                <td id="establishmentExpensesPercent" class="highlight">0.7%</td>
             </tr>
             <tr>
                 <td>Administrative Expenses</td>
-                <td><input type="number" id="administrativeExpenses" value="2.15" oninput="updateValues()" style="color: red;"></td>
-                <td id="administrativeExpensesPercent">0.2%</td>
+                <td class="input-cell"><input type="number" id="administrativeExpenses" value="2.15" onchange="updateValues()"></td>
+                <td id="administrativeExpensesPercent" class="highlight">0.2%</td>
             </tr>
             <tr>
                 <td>Depreciation Expenses</td>
-                <td><input type="number" id="depreciationExpenses" value="0.23" oninput="updateValues()" style="color: red;"></td>
-                <td id="depreciationExpensesPercent">0.0%</td>
+                <td class="input-cell"><input type="number" id="depreciationExpenses" value="0.23" onchange="updateValues()"></td>
+                <td id="depreciationExpensesPercent" class="highlight">0.0%</td>
             </tr>
             <tr>
                 <td>Total Operating Expenses</td>
@@ -87,18 +103,18 @@
             </tr>
             <tr>
                 <td>Provision For NPA</td>
-                <td><input type="number" id="provisionForNPA" value="3.15" oninput="updateValues()" style="color: red;"></td>
-                <td id="provisionForNPAPercent">0.3%</td>
+                <td class="input-cell"><input type="number" id="provisionForNPA" value="3.15" onchange="updateValues()"></td>
+                <td id="provisionForNPAPercent" class="highlight">0.3%</td>
             </tr>
             <tr>
                 <td>Bad Debts, LOS Expense</td>
-                <td><input type="number" id="badDebtsLOExpense" value="4.95" oninput="updateValues()" style="color: red;"></td>
-                <td id="badDebtsLOExpensePercent">0.5%</td>
+                <td class="input-cell"><input type="number" id="badDebtsLOExpense" value="4.95" onchange="updateValues()"></td>
+                <td id="badDebtsLOExpensePercent" class="highlight">0.5%</td>
             </tr>
             <tr>
                 <td>Bad Debts Recovered</td>
-                <td><input type="number" id="badDebtsRecovered" value="0.24" oninput="updateValues()" style="color: red;"></td>
-                <td id="badDebtsRecoveredPercent">0.0%</td>
+                <td class="input-cell"><input type="number" id="badDebtsRecovered" value="0.24" onchange="updateValues()"></td>
+                <td id="badDebtsRecoveredPercent" class="highlight">0.0%</td>
             </tr>
             <tr>
                 <td>Total Credit Loss</td>
@@ -106,13 +122,14 @@
                 <td id="totalCreditLossPercent">0.8%</td>
             </tr>
             <tr>
-                <td><strong>Contribution</strong></td>
-                <td id="contribution"><strong>30.39</strong></td>
-                <td><strong>3.0%</strong></td>
+                <td>Contribution</td>
+                <td id="contribution">30.39</td>
+                <td id="contributionPercent">3.0%</td>
             </tr>
         </tbody>
     </table>
     <canvas id="waterfallChart" width="400" height="200"></canvas>
+
     <script src="script.js"></script>
 </body>
 </html>
